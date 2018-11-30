@@ -1,0 +1,106 @@
+##########################################################
+##################  所有profile共有的配置  #################
+##########################################################
+
+###################  riskManage配置  ###################
+riskManage:
+  swagger-open: true #是否开启swagger (true/false)
+  kaptcha-open: false #是否开启登录时验证码 (true/false)
+  #file-upload-path: d:/tmp  #文件上传目录(不配置的话为java.io.tmpdir目录)
+
+###################  项目启动端口  ###################
+server:
+  port: 8086
+
+###################  beetl配置  ###################
+beetl:
+  delimiter-statement-start: \@   #开始结束标签(yaml不允许@开头)
+  delimiter-statement-end: null
+  resource-tagroot: common/tags   #自定义标签文件Root目录和后缀
+  resource-tagsuffix: tag
+
+
+###################  spring配置  ###################
+spring:
+  profiles:
+    active: dev
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+  http:
+    converters:
+      preferred-json-mapper: fastjson
+
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:com/zdd/risk/**/mapping/*.xml
+  typeAliasesPackage: com.zdd.risk.common.persistence.model
+  global-config:
+    id-type: 1  #1:数据库ID自增   2:用户输入id   3:全局唯一id(IdWorker)   4:全局唯一ID(uuid)
+    db-column-underline: false
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+
+
+##########################################################
+###################  代码生成配置profile  ###################
+##########################################################
+controllerPathTemplate: /src/main/java/com/zdd/risk/modular/loan/controller/{}Controller.java
+pagePathTemplate: /src/main/webapp/WEB-INF/view/loan/{}/{}.html
+pageAddPathTemplate: /src/main/webapp/WEB-INF/view/loan/{}/{}_add.html
+pageEditPathTemplate: /src/main/webapp/WEB-INF/view/loan/{}/{}_edit.html
+pageJsPathTemplate: /src/main/webapp/static/modular/loan/{}/{}.js
+pageInfoJsPathTemplate: /src/main/webapp/static/modular/loan/{}/{}_info.js
+---
+
+##########################################################
+###################  开发环境的profile  ###################
+##########################################################
+spring:
+  profiles: dev
+  datasource:
+      url: jdbc:mysql://192.168.244.206:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: debian-sys-maint
+      password: zwVgAacL3PDYSQQB
+
+logging:
+  level: debug
+  file: logs/riskRiskManage.log
+---
+
+##########################################################
+###################  test环境的profile  ###################
+##########################################################
+spring:
+  profiles: test
+  datasource:
+      url: jdbc:mysql://rm-m5et973u893nl0rh4.mysql.rds.aliyuncs.com:3306/zdd_risk_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: zdd_risk_test
+      password: OxX5X8vmPdaqoYhz
+
+logging:
+  level: warn
+  file: /usr/logs/riskRiskManage_test.log
+
+---
+
+##########################################################
+###################  正式环境的profile  ###################
+##########################################################
+spring:
+  profiles: produce
+  datasource:
+      url: jdbc:mysql://rm-m5et973u893nl0rh4.mysql.rds.aliyuncs.com:3306/zdd_risk?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      username: zdd_risk
+      password: xfSPhn9k0ab4UPfG
+
+logging:
+  level: warn
+  file: /usr/logs/riskRiskManage_prd.log
+
