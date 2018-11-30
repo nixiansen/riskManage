@@ -1,7 +1,5 @@
 package com.zdd.risk.modular.system.controller;
 
-import com.google.code.kaptcha.Constants;
-import com.google.code.kaptcha.Producer;
 import com.zdd.risk.config.properties.RiskManageProperties;
 import com.zdd.risk.core.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,64 +29,64 @@ public class KaptchaController {
     @Resource
     private RiskManageProperties properties;
 
-    @Autowired
-    Producer producer;
+//    @Autowired
+//    Producer producer;
 
     /**
      * 生成验证码
      */
     @RequestMapping("")
     public void index(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
+//        HttpSession session = request.getSession();
+//
+//        response.setDateHeader("Expires", 0);
+//
+//        // Set standard HTTP/1.1 no-cache headers.
+//        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+//
+//        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
+//        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+//
+//        // Set standard HTTP/1.0 no-cache header.
+//        response.setHeader("Pragma", "no-cache");
+//
+//        // return a jpeg
+//        response.setContentType("image/jpeg");
 
-        response.setDateHeader("Expires", 0);
-
-        // Set standard HTTP/1.1 no-cache headers.
-        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-
-        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-
-        // Set standard HTTP/1.0 no-cache header.
-        response.setHeader("Pragma", "no-cache");
-
-        // return a jpeg
-        response.setContentType("image/jpeg");
-
-        // create the text for the image
-        String capText = producer.createText();
-
-        // store the text in the session
-        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-
-        // create the image with the text
-        BufferedImage bi = producer.createImage(capText);
-        ServletOutputStream out = null;
-        try {
-            out = response.getOutputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // write the data out
-        try {
-            ImageIO.write(bi, "jpg", out);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            try {
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        // create the text for the image
+//        String capText = producer.createText();
+//
+//        // store the text in the session
+//        session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+//
+//        // create the image with the text
+//        BufferedImage bi = producer.createImage(capText);
+//        ServletOutputStream out = null;
+//        try {
+//            out = response.getOutputStream();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // write the data out
+//        try {
+//            ImageIO.write(bi, "jpg", out);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            try {
+//                out.flush();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } finally {
+//            try {
+//                out.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     /**

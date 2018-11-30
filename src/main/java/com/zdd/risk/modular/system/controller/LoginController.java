@@ -1,6 +1,5 @@
 package com.zdd.risk.modular.system.controller;
 
-import com.google.code.kaptcha.Constants;
 import com.zdd.risk.common.controller.BaseController;
 import com.zdd.risk.common.exception.InvalidKaptchaException;
 import com.zdd.risk.common.node.MenuNode;
@@ -81,13 +80,13 @@ public class LoginController extends BaseController {
         String password = super.getPara("password").trim();
 
         //验证验证码是否正确
-        if(ToolUtil.getKaptchaOnOff()){
-            String kaptcha = super.getPara("kaptcha").trim();
-            String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-            if(ToolUtil.isEmpty(kaptcha) || !kaptcha.equals(code)){
-                throw new InvalidKaptchaException();
-            }
-        }
+//        if(ToolUtil.getKaptchaOnOff()){
+//            String kaptcha = super.getPara("kaptcha").trim();
+//            String code = (String) super.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+//            if(ToolUtil.isEmpty(kaptcha) || !kaptcha.equals(code)){
+//                throw new InvalidKaptchaException();
+//            }
+//        }
 
         Subject currentUser = ShiroKit.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password.toCharArray());
